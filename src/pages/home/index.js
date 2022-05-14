@@ -7,13 +7,17 @@ import { useSelector, useDispatch } from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { getcountries } from "../../features/actions/action";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setInput } from "../../features/slicer/getAllcountriesSlicer";
 import { addToFavourite } from "../../features/slicer/addToFavouriteSlicer";
 
 function Home() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleNav = (country) => {
+    navigate(`/${country}`);
+  };
   function handleAddToFavourite(item) {
     let data = { ...item };
     data.quant = 1;
@@ -65,7 +69,7 @@ function Home() {
           </Box>
           <Box>
             <select className={classes.regionSelector} id="filterByRegion">
-            <option value="africa">filter by region</option>
+              <option value="africa">filter by region</option>
               <option value="africa">Africa</option>
               <option value="america">America</option>
               <option value="asia">Asia</option>
@@ -85,9 +89,14 @@ function Home() {
                     <>
                       <Box className={classes.containerCards}>
                         <Box>
-                          <Link to="/about">
-                            <img className={classes.forImg} src={item.flag} />
-                          </Link>
+                          {/* <Link to="/about"> */}
+                          <img
+                            className={classes.forImg}
+                            src={item.flag}
+                            onClick={() => handleNav(item)}
+                            alt="image"
+                          />
+                          {/* </Link> */}
                         </Box>
                         <Box style={{ margin: "10px" }}>
                           <Typography>{item.name}</Typography>
@@ -99,6 +108,7 @@ function Home() {
                         </Box>
                         <Button>
                           <FavoriteBorderIcon
+                            style={{ color: "red" }}
                             onClick={() => {
                               handleAddToFavourite(item);
                             }}
@@ -155,7 +165,6 @@ const useStyles = makeStyles((theme) => ({
         width: "20ch",
       },
     },
-    
   },
 
   search_cont: {

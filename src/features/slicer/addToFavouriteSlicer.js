@@ -12,7 +12,12 @@ const favourite = createSlice({
     addToFavourite: (state, action) => {
       state.favouriteData.push(action.payload);
     },
+    removeFromFavourite: (state, action) => {
+      state.favouriteData = state.favouriteData.filter(
+        (item) => item.name !== action.payload
+      );
+    },
   },
 });
-export const { addToFavourite } = favourite.actions;
+export const { addToFavourite, removeFromFavourite } = favourite.actions;
 export default favourite.reducer;

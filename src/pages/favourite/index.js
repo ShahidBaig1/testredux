@@ -1,13 +1,18 @@
-import { Box, makeStyles, Typography, Button } from "@material-ui/core";
+import { Box, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { removeFromFavourite } from "../../features/slicer/addToFavouriteSlicer";
+import Button from "@material-ui/core/Button";
 function Favourite() {
   const classes = useStyles();
   const {
     favourite: { favouriteData },
   } = useSelector((state) => state);
+  const handleRemove = (item) => {
+    dispatch(removeFromFavourite(item));
+  };
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   return (
     <div>
       <Box className={classes.outBox}>
@@ -25,6 +30,15 @@ function Favourite() {
                   <Box>popolation: {item.population}</Box>
                   <Box>Region: {item.region}</Box>
                   <Box>Capital: {item.capital}</Box>
+                  <Button
+                    onClick={() => {
+                      handleRemove(item.name);
+                      console.log("hello");
+                    }}
+                    variant="contained"
+                  >
+                    remove
+                  </Button>
                 </Box>
               </Box>
             </>
@@ -56,5 +70,6 @@ const useStyles = makeStyles((theme) => ({
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr 1fr",
     margin: 20,
+    backgroundColor: "#f7f7f7",
   },
 }));

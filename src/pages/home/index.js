@@ -15,8 +15,9 @@ function Home() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleNav = (country) => {
-    navigate(`/${country}`);
+
+  const handleNav = (item) => {
+    navigate(`/${item}`);
   };
   function handleAddToFavourite(item) {
     let data = { ...item };
@@ -24,12 +25,7 @@ function Home() {
     dispatch(addToFavourite(data));
   }
   const {
-    getAllcountries: {
-      countryDetails,
-      countryLoading,
-      countryLoadedSuccess,
-      countryLoadedFailed,
-    },
+    getAllcountries: { countryDetails, countryLoading },
   } = useSelector((state) => state);
   useEffect(() => {
     dispatch(getcountries());
@@ -84,27 +80,41 @@ function Home() {
           ) : (
             <Box className={classes.outerGrid}>
               <Box className={classes.grids}>
-                {countryDetails.map((item) => {
+                {countryDetails.slice(0, 12).map((item) => {
                   return (
                     <>
                       <Box className={classes.containerCards}>
-                        <Box>
-                          {/* <Link to="/about"> */}
+                        <Box
+                          onClick={() => {
+                            handleNav(item.name);
+                          }}
+                        >
                           <img
                             className={classes.forImg}
                             src={item.flag}
-                            onClick={() => handleNav(item)}
-                            alt="image"
+                            alt="country value"
                           />
-                          {/* </Link> */}
                         </Box>
-                        <Box style={{ margin: "10px" }}>
-                          <Typography>{item.name}</Typography>
+                        <Box>
+                          <Typography className={classes.countryName}>
+                            {item.name}
+                          </Typography>
                         </Box>
                         <Box className={classes.titles}>
-                          <Box>popolation: {item.population}</Box>
-                          <Box>Region: {item.region}</Box>
-                          <Box>Capital: {item.capital}</Box>
+                          <Box>
+                            <span className={classes.hedings}>
+                              popolation:{" "}
+                            </span>{" "}
+                            {item.population}
+                          </Box>
+                          <Box>
+                            <span className={classes.hedings}>Region: </span>
+                            {item.region}
+                          </Box>
+                          <Box>
+                            <span className={classes.hedings}>Capital: </span>{" "}
+                            {item.capital}
+                          </Box>
                         </Box>
                         <Button>
                           <FavoriteBorderIcon
@@ -160,7 +170,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "12ch",
+      width: "22ch",
       "&:focus": {
         width: "20ch",
       },
@@ -180,6 +190,7 @@ const useStyles = makeStyles((theme) => ({
   },
   outerMost: {
     display: "flex",
+    flexWrap: "wrap",
     justifyContent: "space-around",
     alignItems: "center",
   },
@@ -192,17 +203,20 @@ const useStyles = makeStyles((theme) => ({
   },
   containerCards: {
     boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-    width: 180,
+    width: 230,
     margin: 20,
     backgroundColor: "white",
   },
   forImg: {
-    width: 180,
-    height: 120,
+    width: 230,
+    height: 150,
+    cursor: "pointer",
   },
   grids: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr 1fr",
+    display: "flex",
+    flexWrap: "wrap",
+    // gridTemplateColumns: "1fr 1fr 1fr 1fr",
+    justifyContent: "center",
     margin: 20,
   },
   outerGrid: {
@@ -213,5 +227,21 @@ const useStyles = makeStyles((theme) => ({
   titles: {
     display: "flex",
     flexDirection: "column",
+    textAlign: "left",
+    marginLeft: 30,
+  },
+  countryName: {
+    textAlign: "left",
+    marginLeft: 28,
+    fontWeight: 700,
+    marginTop: 10,
+  },
+  hedings: {
+    fontWeight: 600,
+    lineHeight: 1.5,
+    textTransform: "capitalize",
+  },
+  heart: {
+    margin: 10,
   },
 }));

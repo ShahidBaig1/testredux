@@ -23,22 +23,35 @@ function Favourite() {
                 <Box>
                   <img className={classes.forImg} src={item.flag} />
                 </Box>
-                <Box style={{ margin: "10px" }}>
-                  <Typography>{item.name}</Typography>
+                <Box>
+                  <Typography className={classes.countryName}>
+                    {item.name}
+                  </Typography>
                 </Box>
                 <Box className={classes.titles}>
-                  <Box>popolation: {item.population}</Box>
-                  <Box>Region: {item.region}</Box>
-                  <Box>Capital: {item.capital}</Box>
-                  <Button
-                    onClick={() => {
-                      handleRemove(item.name);
-                      console.log("hello");
-                    }}
-                    variant="contained"
-                  >
-                    remove
-                  </Button>
+                  <Box>
+                    <span className={classes.hedings}>popolation: </span>{" "}
+                    {item.population}
+                  </Box>
+                  <Box>
+                    <span className={classes.hedings}>Region: </span>{" "}
+                    {item.region}
+                  </Box>
+                  <Box>
+                    <span className={classes.hedings}>Capital: </span>{" "}
+                    {item.capital}
+                  </Box>
+                  <Box className={classes.btn}>
+                    <Button
+                      onClick={() => {
+                        handleRemove(item.name);
+                        console.log("hello");
+                      }}
+                      variant="contained"
+                    >
+                      remove
+                    </Button>
+                  </Box>
                 </Box>
               </Box>
             </>
@@ -54,22 +67,38 @@ export default Favourite;
 const useStyles = makeStyles((theme) => ({
   containerCards: {
     boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-    width: 180,
+    width: 230,
     margin: 20,
     backgroundColor: "white",
   },
   forImg: {
-    width: 180,
-    height: 120,
+    width: 230,
+    height: 150,
   },
   titles: {
     display: "flex",
     flexDirection: "column",
+    textAlign: "left",
+    marginLeft: 30,
   },
   outBox: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr 1fr",
     margin: 20,
     backgroundColor: "#f7f7f7",
+  },
+  countryName: {
+    textAlign: "left",
+    marginLeft: 28,
+    fontWeight: 700,
+    marginTop: 10,
+  },
+  btn: {
+    margin: 15,
+  },
+  hedings: {
+    fontWeight: 600,
+    lineHeight: 1.5,
+    textTransform: "capitalize",
   },
 }));

@@ -13,9 +13,8 @@ export default function Routers() {
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/home" exact element={<Home />} />
-          <Route path="/:countryName" exact element={<About />} />
           <Route path="/favourite" exact element={<Favourite />} />
-          {/* <Route path="/:countryName" element={<Page />} /> */}
+          <Route path="/:countryName" element={<About />} />
         </Routes>
       </BrowserRouter>
     </div>

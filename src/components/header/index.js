@@ -12,10 +12,10 @@ export default function ButtonAppBar() {
   return (
     <div className={classes.root}>
       <Box className={classes.mainCont}>
-        <Box>
-          <Typography variant="h5" className={classes.logo}>
-            Where in the world?
-          </Typography>
+        <Box className={classes.logo}>
+          <Link to="/home">
+            <Typography variant="h5">Where in the world?</Typography>
+          </Link>
         </Box>
         <Box className={classes.forLinks}>
           <Link to="/home">Home</Link>
@@ -33,8 +33,15 @@ export default function ButtonAppBar() {
 
 const useStyles = makeStyles((theme) => ({
   logo: {
-    color: "black",
-    fontWeight: "bold",
+    "& p": {
+      fontWeight: "bold",
+      cursor: "pointer",
+      textDecoration: "none",
+    },
+    "& a": {
+      textDecoration: "none",
+      color: "black",
+    },
   },
   mainCont: {
     display: "flex",
@@ -49,12 +56,16 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   forLinks: {
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    },
     "& a": {
       margin: 10,
       fontSize: 20,
       fontWeight: 700,
-      Color: "yellow",
+
       textDecoration: "none",
+      color: "black",
     },
   },
 }));

@@ -10,3 +10,17 @@ export const getcountries = createAsyncThunk("countries", async () => {
     console.log(error, "error");
   }
 });
+
+export const getCountryData = createAsyncThunk(
+  "/countryName",
+  async (payload) => {
+    try {
+      const countryData = await axios.get(
+        `https://restcountries.com/v2/name/${payload}`);
+      console.log(countryData.data, "api data");
+      return countryData.data;
+    } catch (error) {
+      console.log(error, "country detail api");
+    }
+  }
+);

@@ -15,7 +15,7 @@ const getAllcountries = createSlice({
     setInput: (state, action) => {
       if (action.payload != null) {
         state.countryDetails = state.countryDetails.filter((item) => {
-          if (item.name[0] === action.payload[0]) {
+          if (item.name.toLowerCase().includes(action.payload)) {
             return item;
           }
         });
